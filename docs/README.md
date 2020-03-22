@@ -1,5 +1,5 @@
 # CxExpress
-> Cx Express is a fast and lightweight framework inspired by [ExpressJS framework](https://www.npmjs.com/package/express) for PHP.
+> Cx Express is a fast and lightweight framework inspired by [ExpressJS framework](https://www.npmjs.com/package/express) for PHP. That allows you to quickly develop website or API.
 
 Docs at https://cxengine.github.io/Express/
 
