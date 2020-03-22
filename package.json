@@ -1,0 +1,14 @@
+{
+  "name": "cx-express",
+  "version": "0.0.1",
+  "description": "A simple PHP framework",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd public && php -S localhost:8880",
+    "dev": "browser-sync start --port 5000 --proxy 'localhost:8666' --files './'",
+    "docs": "browser-sync docs -w"
+  },
+  "keywords": [],
+  "author": "Jelle Hak",
+  "license": "ISC"
+}
