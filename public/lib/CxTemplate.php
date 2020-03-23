@@ -1,34 +1,21 @@
 <?php
 
-
-
-
-
 class CxTemplate
 {
 	private $data;
 
 	function render($view, $scope = [])
 	{
+		// Expose for use in a view
 		global $db, $service;
 
 		// Handy for debugging
 		// $this->scope = $scope;
 		$this->data = (array) $scope;
 
-		// Template render helper
-		$render = function ($file, $scope = []) {
-			ob_start();
-			include $file;
-			return ob_get_clean();
-		};
-
 		// Template slot helper
-		$slot = function ($name, $default = '') use ($scope, &$slot) {
+		$slot = function ($name, $default = '') use ($scope, &$slot, &$asset) {
 			$scope = isset($scope[$name]) ? $scope[$name] : $scope;
-			// $scope = isset($scope[$name]) ? $scope[$name] : null;
-			// echo $name;
-			// getCx()->debug($scope);
 
 			// View helpers
 			global $db, $service;
@@ -40,24 +27,25 @@ class CxTemplate
 
 			// Object ?
 			$type = $scope[0];
-			// getCx()->debug($type);
 
-			// ['file' => 'view.php', 'data' => []]
-			if ($scope['file']) {
-				$data = $scope['data'];
-				$this->data = (array) $data;
-				// $this->$data = $data;
-				include $scope['file'];
-			}
-
-			// ['file', 'view.php']
-			if ($type === 'file') {
-				include $scope[1];
-			}
 			$resp = isset($scope[$name]) ? $scope[$name] : $default;
-			// echo "cool".$resp;			
 
 			return $resp;
+		};
+
+		// Template render helper
+		$render = function ($file, $scope = []) use ($slot) {
+			/**
+			 * Template Helpers
+			 */
+			// $asset = function ($dir = '') {
+			// 	return str_replace(APP, "", $dir);
+			// };
+
+			// Buffer output
+			ob_start();
+			include $file;
+			return ob_get_clean();
 		};
 
 		// Alias $data to $scope
@@ -65,7 +53,6 @@ class CxTemplate
 
 		// Include main
 		return $render($view, $scope);
-		// include $view;
 	}
 
 	// magic methods!

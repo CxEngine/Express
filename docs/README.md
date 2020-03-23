@@ -115,40 +115,62 @@ $router->post('/', function($req, $res) {
 });
 ```
 
-**TIP**: There are a few more examples in the `index.php` file in this repository.
+**TIP**: There are more examples in the `/public` directory in this repository.
+
+### Redirect
+```php
+$router->get('/', function($req, $res) {
+	$res->redirect('/dashboard');
+});
+```
 
 ## Template engines
-You have avaible [Pug](https://pugjs.org) (ex Jade) and [Mustache](https://mustache.github.io/). Here's an example:
+Here's an example:
 
 ```php
-$app->set('view_engine', include __DIR__ . '/YourTemplateEngine.php');
+<?php
 
-// Configure the engine to Pug
-$app->set('view engine','pug');
-
-// Jade was renamed to Pug, but we recognize it ;)
-$app->set('view engine','jade');
-
-// Or Mustache
-$app->set('view engine','mustache');
+// Set custom template engine
+$app->set('view_engine', include __DIR__ . '/lib/CxTemplate.php');
 
 // Set the path to the template files
-$app->set('views','./views/pug');
+$app->set('views', './views');
+
+// Mock some users
+$users = [
+	[
+		'id' => 0,
+		'title' => 'Henk',
+		'subtitle' => 'Customer',
+		'image' => 'https://via.placeholder.com/150'
+	],
+	[
+		'id' => 1,
+		'title' => 'Alex',
+		'subtitle' => 'Administrator',
+		'image' => 'https://via.placeholder.com/150'
+	]
+];
 
 // Now you can do something like this
-$router->get('/', function($req, $res) {
-	$res->render('index.jade');
+$router->get('/', function ($req, $res) use ($users) {
+	$res->render('index.php', [
+		'title'	=> "Your website",
+		// 'items' => $users,
+		'main' => $res->render('users.php', ['items' => $users], true)
+	]);
 });
 
 // Or this
-$router->get('/users/:username', function($req, $res) {
-	$res->render('index.jade', array(
-		'name'	=> $req->params->username
-	));
+$router->get('/users/:id', function ($req, $res) use ($users) {
+	$res->render('index.php', [
+		'title'	=> "Your website",
+		// 'item'	=> $users[$req->params->id],
+		'main' => $res->render('user.php', $users[$req->params->id || 0], true)
+	]);
 
-	// Now in jade, you can use #{name} to get that variable!
+	// Now in your template, you can use `$this->title` to get that variable!
 });
-
 ```
 
 ## Request info
