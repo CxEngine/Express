@@ -1,0 +1,11 @@
+{
+    "name": "cxengine/express",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jelle Hak",
+            "email": "jellehak@gmail.com"
+        }
+    ],
+    "require": {}
+}
