@@ -58,7 +58,19 @@ $router->use('/test/:test', function ($req, $res, $next) {
  */
 
 // Set custom template engine
-$app->set('view_engine', include __DIR__ . '/plugins/cxtemplate/CxTemplate.php');
+include __DIR__ . '/plugins/cxtemplate/CxTemplate.php';
+
+$app->set('view_engine', new CxTemplate([
+    'helpers' => [
+        /**
+         * Helper to easily add assets from the template directory
+         * Usage: <script src="<?=$asset(__DIR__)?>/script.js">
+         */
+        'asset' => function ($dir = '') {
+            return str_replace(__DIR__, "", $dir);
+        }
+    ]
+]));
 
 // Set the path to the template files
 $app->set('views', './views');

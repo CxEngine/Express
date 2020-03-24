@@ -3,7 +3,10 @@
 class CxTemplate
 {
 	// Provided config
-	private $config = [];
+	// private $config = [];
+
+	// Helper functions
+	private $helpers;
 
 	// Magic get and set to use in view
 	private $data;
@@ -12,11 +15,12 @@ class CxTemplate
 		'helpers' => []
 	])
 	{
-		$this->config = $config;
+		// $this->config = $config;
 
-		// Attach helpers
-		$helpers =  (object) $config['helpers'];
-		$this->data = (array) $helpers;
+		// Break config
+		// $helpers =  (object) $config['helpers'];
+		// $this->data = (array) $helpers;
+		$this->helpers = (array) $config['helpers'];
 	}
 
 	function render($view, $context = [])
@@ -48,6 +52,10 @@ class CxTemplate
 			// 	return str_replace(APP, "", $dir);
 			// };
 
+			// print_r($this);
+			// Flatten helpers for easy access
+			extract($this->helpers);
+
 			// Flatten context for easy access
 			if ($context) {
 				extract($context);
@@ -67,19 +75,6 @@ class CxTemplate
 
 		// Include main
 		return $render($view, $context, true);
-	}
-
-	// magic methods: for accessing helpers and template global data
-	public function __set($property, $value)
-	{
-		return $this->data[$property] = $value;
-	}
-
-	public function __get($property)
-	{
-		return array_key_exists($property, $this->data)
-			? $this->data[$property]
-			: null;
 	}
 }
 
