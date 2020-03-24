@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="<?=$this->description?>">
-    <meta name="author" content="<?=$this->author?>">
-    <title><?=$this->title?></title>
+    <meta name="description" content="<?=$description?>">
+    <meta name="author" content="<?=$author?>">
+    <title><?=$title?> - Your website</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -82,7 +82,7 @@
         <div class="navbar navbar-dark bg-dark box-shadow">
             <div class="container d-flex justify-content-between">
                 <a href="#" class="navbar-brand d-flex align-items-center">
-                    <strong><?=$this->title?></strong>
+                    <strong><?=$title?></strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -93,7 +93,8 @@
 
     <main role="main">
 
-        <?= $this->main ?>
+        <?php // $main ?>
+        <?= $slot("main") ?>
 
     </main>
 

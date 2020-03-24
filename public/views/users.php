@@ -13,22 +13,24 @@
     <div class="container">
 
         <div class="row">
-            <?php foreach ($this->items as $item) { ?>
-                <div class="col-md-4">
+            <?php foreach ($items as $item) { ?>
+
+                <?php $render(__DIR__."/usercard.php", $item) ?>
+                <!-- <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top" src="<?= $item['image'] ?>" alt="Card image cap">
                         <div class="card-body">
-                            <p class="card-text"><?=$item['title']?></p>
+                            <p class="card-text"><?= $item['title'] ?></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a href="/users/<?= $item['id'] ?>" type="button" class="btn btn-sm btn-outline-secondary">View</a>
                                     <a type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
                                 </div>
-                                <small class="text-muted"><?=$item['subtitle']?></small>
+                                <small class="text-muted"><?= $item['subtitle'] ?></small>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             <?php } ?>
         </div>
     </div>
