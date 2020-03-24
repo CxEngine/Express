@@ -7,10 +7,13 @@ $router = new Router();
 
 $app->set('basePath', '');
 
-include __DIR__."/cors.php";
-include __DIR__."/view_engine.php";
+/**
+ * Middleware
+ */
+$router->use(include __DIR__."/middleware/cors.php");
 
-$router->get('/', function($req, $res) {
+
+$router->get('/test', function($req, $res) {
     $res->send(<<<HTML
     <h1>hello world!</h1>
     <a href="/about">/about</a>
